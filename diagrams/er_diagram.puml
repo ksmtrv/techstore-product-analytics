@@ -1,0 +1,68 @@
+@startuml
+
+hide circle
+skinparam linetype ortho
+
+entity Users {
+    * id : int
+    --
+    first_name : varchar
+    last_name : varchar
+    email : varchar
+    gender : varchar
+    birth_date : date
+    city : varchar
+    registration_date : date
+}
+
+entity Categories {
+    * id : int
+    --
+    name : varchar
+}
+
+entity Products {
+    * id : int
+    --
+    category_id : int
+    name : varchar
+    brand : varchar
+    price : decimal
+}
+
+entity Orders {
+    * id : int
+    --
+    user_id : int
+    order_date : timestamp
+    status : varchar
+    payment_method : varchar
+    total_amount : decimal
+}
+
+entity OrderItems {
+    * id : int
+    --
+    order_id : int
+    product_id : int
+    quantity : int
+    unit_price : decimal
+}
+
+entity Sessions {
+    * id : int
+    --
+    user_id : int
+    session_date : timestamp
+    device : varchar
+    traffic_source : varchar
+    duration : int
+}
+
+Users ||--o{ Orders
+Orders ||--o{ OrderItems
+Products ||--o{ OrderItems
+Categories ||--o{ Products
+Users ||--o{ Sessions
+
+@enduml
